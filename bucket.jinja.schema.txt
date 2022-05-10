@@ -1,0 +1,37 @@
+info:
+  title:Cloud Bucket
+  author: Jack Davis[19701851]
+  description: Creates a bucket to store data on the cloud
+
+imports:
+- path:buket.jinja
+
+required:
+- name
+- location
+- storageClass
+- age
+- subnet
+
+properties:
+  name:
+    type: string
+    description: sets the name for the bucket
+
+  zone:
+    type: string
+    default: EU
+    description: sets the area of the world the bucket will be set up in
+
+  storageClass:
+    type:string
+    description: sets the storage type the bucket will be so the rule for data deletion is accurate for its purpose.
+
+  age:
+    type: integer
+    default: 30
+    description: set amount of time to pass before old data is deleted.
+
+  subnet:
+    type: string
+    description: sets which network the Bucket will be apart of

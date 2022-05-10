@@ -1,0 +1,21 @@
+info:
+  title: Cloud Network
+  author: Jack Davis[19701851]
+  description: Creates a template to be used to create a network
+
+imports:
+- path:network.jinja
+
+required:
+- name
+- autoCreateSubnetworks
+
+properties:
+  name:
+    type: string
+    description: sets the name for the network
+
+  autoCreateSubnetworks:
+    type: boolean
+    default: true
+    description: sets the ability to auto create subnets for the network

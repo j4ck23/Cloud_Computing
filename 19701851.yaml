@@ -1,0 +1,92 @@
+imports:
+- path: servervm.jinja #import template files
+- path: bucket.jinja
+- path: vm1.jinja
+- path: sql.jinja
+- path: network.jinja
+- path: subnetwork.jinja
+- path: firewalltemp.jinja
+- path: vpn.jinja
+- path: loadbal.jinja
+
+resources:
+- name: net #creates a netowrk
+  type: network.jinja
+
+- name: firewall #creates the filewall for the network.
+  type: firewalltemp.jinja
+  properties:
+    network: $(ref.net.selfLink)
+
+- name: subnetuk #creates a subnetwork in the uk
+  type: subnetwork.jinja
+  properties:
+    ipCidrRange: 10.10.0.0/24 #sets the ip range for the subnetwork
+    network: $(ref.net.selfLink) #links the network created.
+    region: europe-west2 #sets the region frot eh subnetwork
+
+- name: subnetus #creates a subnetwork
+  type: subnetwork.jinja
+  properties:
+    ipCidrRange: 10.10.1.0/24
+    network: $(ref.net.selfLink)
+    region: us-west1 #sets the region for the subnetwork
+
+- name: vpnuk #create a vpn for remote work in the uk
+  type: vpn.jinja
+  properties:
+    region: europe-west2
+    network: $(ref.net.selfLink)
+
+- name: vpnus #creates a vpn for remote work in the us
+  type: vpn.jinja
+  properties:
+    region: us-west1
+    network: $(ref.net.selfLink)
+
+- name: servervm #creates the VM for the server
+  type: servervm.jinja
+  properties:
+    subnetwork: $(ref.subnetuk.selfLink) #gets the subnet greated in the subnet resource.
+
+- name: vmuk #creates vm for uk users
+  type: vm1.jinja
+  properties:
+    zone: europe-west2-a #sets the location of the vm
+    subnetwork: $(ref.subnetuk.selfLink)
+
+- name: vmus #vm for us users
+  type: vm1.jinja
+  properties:
+    zone: us-west1-a
+    subnetwork: $(ref.subnetus.selfLink)
+
+- name: bucketuk #bucket for standard users
+  type: bucket.jinja
+  properties:
+    location: EU
+    storageClass: STANDARD
+    age: 30
+    subnetwork: $(ref.subnetuk.selfLink)
+
+- name: bucketus1 #bucket for standard users
+  type: bucket.jinja
+  properties:
+    location: US
+    storageClass: STANDARD
+    age: 30
+    subnetwork: $(ref.subnetus.selfLink)
+
+- name: bucketarchive #bucket for archive data
+  type: bucket.jinja
+  properties:
+    location: EU
+    storageClass: ARCHIVE
+    age: 365
+    subnetwork: $(ref.subnetuk.selfLink)
+
+- name: sqldata #creates a sql database
+  type: sql.jinja
+  properties:
+    subnetwork: $(ref.subnetuk.selfLink)
+    tier: db-n1-standard-1 #declares the database to be a starndard size see - https://cloud.google.com/sql/docs/mysql/instance-settings

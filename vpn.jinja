@@ -1,0 +1,6 @@
+resources:
+- type: compute.v1.vpnGateways # declares the type as a vpn gatway see - https://cloud.google.com/compute/docs/reference/rest/v1/targetVpnGateways
+  name: gateway-{{ env["name"] }} #gets the name declared in the yaml file
+  properties:
+    region: {{ properties["region"] }} #gets the name declared in the yaml file
+    network: {{ properties["network"] }} #get the network form the yaml file

@@ -1,0 +1,20 @@
+resources:
+- type: compute.v1.httpHealthCheck #declares the type as a healt check see -https://cloud.google.com/compute/docs/reference/rest/v1/httpHealthChecks
+  name: HCHECK
+  properties:
+    port: 80 #opens the check port 80
+    checkIntervalSec: 3 #checks every 3 seconds
+    unhealthyThreshold: 5 #marked as unhelathy after 5 failures
+    healthyThreshold: 2 #marked healthy after 2 passes
+
+- type: compute.v1.backendService #declres this instance as a backend service see- https://cloud.google.com/compute/docs/reference/rest/v1/backendServices
+  name: backend
+  properties:
+    healthChecks:
+      - $(ref.{{ HCHECK }}.selfLink) #refers to the health test above.
+    port: 80 #checks through port 80
+    portName: http
+    protocol: HTTP
+    timeoutSec: 30 #times the check out afteer 30 seconds of inactivity
+    backends: 
+        balancingMode: RATE

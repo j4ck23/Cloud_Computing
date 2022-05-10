@@ -1,0 +1,7 @@
+resources:
+- name: {{ env["name"] }} #gets the name from the yaml file
+  type: compute.v1.network #declares the type for network see - https://cloud.google.com/compute/docs/reference/rest/v1/networks
+  properties:
+    routingConfig:
+      routingMode: GLOBAL
+    autoCreateSubnetworks: false # turns off the automation for creating subnets to allow you to apply a custom one

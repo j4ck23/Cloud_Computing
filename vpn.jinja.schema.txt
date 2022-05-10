@@ -1,0 +1,26 @@
+info:
+  title: Cloud VPN
+  author: Jack Davis[19701851]
+  description: Creates a template to be used to create VPN
+
+imports:
+- path:vpn.jinja
+
+required:
+- name
+- region
+- network
+
+properties:
+  name:
+    type: string
+    description: sets the name for the VPN
+
+  region:
+    type: string
+    default: EU
+    description: sets the area of the world the VPN will be set up
+
+  network:
+    type: string
+    description: sets which network the VPN will be apart of

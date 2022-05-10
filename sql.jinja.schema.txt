@@ -1,0 +1,37 @@
+info:
+  title: Cloud SQL
+  author: Jack Davis[19701851]
+  description: Creates a template to be used for cloud sql databases
+
+imports:
+- path:sql.jinja
+
+required:
+- name
+- tier
+- subnet
+- instance
+- charset
+
+
+properties:
+  name:
+    type: string
+    description: sets the name for the sql instance and database
+
+  tier:
+    type: string
+    default: db-n1-standard-1
+    description: sets the size of the database
+
+  subnet:
+    type: string
+    description: sets which network the database will be apart of
+
+  instance:
+    type: string
+    description: sets which sql instance the database will be apart of
+
+  charset:
+    type: string
+    description: sets which character set the database will use.

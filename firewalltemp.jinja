@@ -1,0 +1,9 @@
+resources:
+- name: {{ env["name"] }} #gets the name delcared in the yaml file
+  type: compute.v1.firewall #declares the type as a fire wall template see - https://cloud.google.com/compute/docs/reference/rest/v1/firewalls
+  properties:
+    network: {{properties["network"] }} #gets the network to attach itself to from the yaml file
+    sourceRanges: ["0.0.0.0/0"]
+    allowed:
+    - IPProtocol: TCP
+      ports: ["80"] #opens port 80 to allow the network to connect to the internet.

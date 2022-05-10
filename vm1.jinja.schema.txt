@@ -1,0 +1,26 @@
+info:
+  title: Cloud Virtual Machine
+  author: Jack Davis[19701851]
+  description: Creates a template to be used to create virtual machines
+
+imports:
+- path:vm1.jinja
+
+required:
+- name
+- zone
+- subnet
+
+properties:
+  name:
+    type: string
+    description: sets the name for the VM
+
+  zone:
+    type: string
+    default: europe-west2-a
+    description: sets the area of the world the vm will be set up
+
+  subnet:
+    type: string
+    description: sets which network the VM will be apart of

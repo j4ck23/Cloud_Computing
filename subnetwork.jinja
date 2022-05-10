@@ -1,0 +1,7 @@
+resources:
+- name: {{ env["name"] }} #gets the name from the yaml file
+  type: compute.v1.subnetwork # sets the type as a subnetwork instance see - https://cloud.google.com/compute/docs/reference/rest/v1/subnetworks
+  properties:
+    ipCidrRange: {{ properties["ipCidrRange"] }} #gets the ip range from the yaml file
+    network: {{ properties["network"] }} #get the network form the yaml file
+    region: {{properties["region"] }} #gets the region formt he yaml file

@@ -1,0 +1,26 @@
+info:
+  title: Cloud Firewall
+  author: Jack Davis[19701851]
+  description: Creates a template for the firewall for the cloud network.
+
+imports:
+- path:firewalltemp.jinja
+
+required:
+- name
+- network
+- ports
+
+properties:
+  name:
+    type: string
+    description: sets the name for the firewall
+
+  network:
+    type: string
+    description: sets teh network that the firewall will work for
+
+  subnet:
+    type: integer
+    default: 80
+    description: sets the ports that will be opened by the fire wall

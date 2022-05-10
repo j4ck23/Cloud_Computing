@@ -1,0 +1,22 @@
+resources:
+- type: storage.v1.bucket # declres the type as a bucket see - https://cloud.google.com/storage/docs/json_api/v1/buckets for more details
+  name: {{env ["name"]}} #gets the name from the yaml file
+  properties:
+    predefinedAcl: projectPrivate # a predefined access control list
+    projection: full
+    location: {{properties["location"] }} #gets the location form the yaml file
+    storageClass: {{properties["storageClass"]}} #gets the storage type from the yaml file
+    lifecycle:
+      rule:
+        - action:
+            type: Delete
+          condition:
+            age: {{properties["age"] }}
+            isLive: true #sets the bucket to be cleared after set days to help save on storage
+        - action:
+            type: Delete
+          condition:
+            isLive: false
+            numNewerVersions: 3
+    networkInterfaces:
+    - subnet: {{ properties["subnetwork"] }} #fetches the subnet to be used from the yaml file

@@ -1,0 +1,30 @@
+info:
+  title: Cloud subnet
+  author: Jack Davis[19701851]
+  description: Creates a template to be used to create subnetwork
+
+imports:
+- path:subnetwork.jinja
+
+required:
+- name
+- ipCidrRange
+- network
+- region
+
+properties:
+  name:
+    type: string
+    description: sets the name for the subnet
+
+  ipCidrRange:
+    type: integer
+    description: sets the ip range that the subnets will range from
+
+  network:
+    type: string
+    description: sets which network the subnet will be apart of
+
+  region:
+    type:string
+    description: sets the region the subnet will be in.

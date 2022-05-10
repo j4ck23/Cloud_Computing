@@ -1,0 +1,15 @@
+resources:
+- name: vm-{{ env["name"] }} #gets the name from the yaml file
+  type: compute.v1.instance # delcares teh instance as a base compute instance see -https://cloud.google.com/compute/docs/reference/rest/v1/instances
+  properties:
+    zone: {{properties["zone"] }} #gets the zone delcred in the yaml file
+    machineType: zones/{{properties["zone"] }}/machineTypes/n1-standard-1
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+        sourceImage: projects/debian-cloud/global/images/family/debian-9
+    networkInterfaces:
+    - subnet: {{ properties["subnetwork"] }} #gets the subnet declared in the yaml file
